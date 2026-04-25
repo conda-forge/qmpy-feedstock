@@ -1,19 +1,21 @@
-{% set name = "qmpy" %}
-{% set version = "1.4.0" %}
+schema_version: 1
 
+context:
+  name: qmpy
+  version: 1.4.0
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/qmpy-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/qmpy-${{ version }}.tar.gz
   sha256: 6547c16c0315ba08acd9ab9e73143a08101f76644b768b968a862d71a171ffce
 
 build:
-  number: 1
+  number: 2
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: ${{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
@@ -51,28 +53,26 @@ requirements:
     - scipy
     - spglib >1.10
 
-test:
-  imports:
-    - qmpy
-    - qmpy.analysis
-  commands:
-    - pip check
-  requires:
-    - pip
+tests:
+  - python:
+      imports:
+        - qmpy
+        - qmpy.analysis
+      pip_check: true
 
+      python_version: ${{ python_min }}.*
 about:
-  home: http://www.oqmd.org/
   license: MIT
-  license_family: MIT
   license_file: LICENSE.txt
-  summary: 'A suite of computational materials science tools.'
+  summary: A suite of computational materials science tools.
   description: |
-    A toolkit for storing crystal structure data, automating 
+    A toolkit for storing crystal structure data, automating
     density-functional calculations, handling computational resources and
     performing thermodynamic analysis. qmpy is used to run and maintain
     the Open Quantum Materials Database (oqmd.org).
-  doc_url: http://www.oqmd.org/static/docs/index.html
-  dev_url: https://github.com/wolverton-research-group/qmpy
+  homepage: http://www.oqmd.org/
+  repository: https://github.com/wolverton-research-group/qmpy
+  documentation: http://www.oqmd.org/static/docs/index.html
 
 extra:
   recipe-maintainers:
