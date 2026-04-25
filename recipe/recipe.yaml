@@ -9,7 +9,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/qmpy-${{ version }}.tar.gz
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/qmpy-${{ version }}.tar.gz
   sha256: 6547c16c0315ba08acd9ab9e73143a08101f76644b768b968a862d71a171ffce
 
 build:
@@ -20,7 +20,8 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.5
+    - setuptools
+    - python ${{ python_min }}.*
   run:
     - ase
     - bokeh
@@ -45,7 +46,7 @@ requirements:
     - pygraphviz
     - pyparsing
     - pytest
-    - python >=3.5
+    - python >=${{ python_min }}
     - python-memcached
     - pyyaml
     - requests
